@@ -54,6 +54,7 @@ export default function Home() {
   const handleRegistrationComplete = (newUser: User) => {
     setUser(newUser)
     loadTodaysRecord(newUser)
+    loadHistory(newUser.id)
   }
 
   const handleAddFood = (food: FoodItem, quantity: number) => {
@@ -80,6 +81,7 @@ export default function Home() {
 
     setCurrentRecord(updatedRecord)
     saveDailyRecord(updatedRecord, user.id)
+    loadHistory(user.id)
   }
 
   const handleRemoveFood = (id: string) => {
@@ -96,6 +98,7 @@ export default function Home() {
 
     setCurrentRecord(updatedRecord)
     saveDailyRecord(updatedRecord, user.id)
+    loadHistory(user.id)
   }
 
   const handleLogout = () => {
