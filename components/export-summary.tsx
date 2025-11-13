@@ -216,7 +216,7 @@ Generado con Contador de Calorías 🍎`
           <polyline points="7 10 12 15 17 10" />
           <line x1="12" y1="15" x2="12" y2="3" />
         </svg>
-        Descargar PDF
+        Descargar Resumen diario
       </Button>
 
       <Button onClick={handleShareSummary} variant="outline" className="gap-2 bg-transparent" size="sm">
