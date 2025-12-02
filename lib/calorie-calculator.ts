@@ -37,17 +37,29 @@ export function calculateTDEE(input: CalorieCalculationInput): number {
 export function getMotivationalMessage(consumed: number, goal: number): string {
   const ratio = consumed / goal
 
-  if (ratio === 0) {
-    return "¡Comienza tu día! Registra tus primeras calorías."
-  } else if (ratio < 0.5) {
-    return "¡Buen comienzo! Te falta energía, come algo nutritivo."
-  } else if (ratio >= 0.5 && ratio < 0.9) {
-    return "¡Vas bien! Estás en el camino correcto."
-  } else if (ratio >= 0.9 && ratio <= 1.1) {
-    return "¡Excelente! Estás alcanzando tu meta calórica."
-  } else if (ratio > 1.1 && ratio < 1.3) {
-    return "Te pasaste un poco, pero ¡mañana lo harás mejor!"
-  } else {
-    return "Superaste tu meta. Ajusta mañana para mejores resultados."
-  }
+  const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)]
+
+  // Tres categorías según tu especificación: falta, va bien, se pasó
+  const falta = [
+    "Te faltan energías, ¡come algo nutritivo!",
+    "Te faltan energías, ¡come algo nutritivo!",
+    "Te faltan energías, ¡come algo nutritivo!",
+  ]
+
+  const vaBien = [
+    "¡Excelente! Estás logrando tus metas",
+    "¡Excelente! Estás logrando tus metas",
+    "¡Excelente! Estás logrando tus metas",
+  ]
+
+  const sePaso = [
+    "Ups… mañana lo harás mejor",
+    "Ups… mañana lo harás mejor",
+    "Ups… mañana lo harás mejor",
+  ]
+
+  // Lógica simple: si está por debajo del 90% -> falta, entre 90% y 110% -> va bien, por encima -> se pasó
+  if (ratio < 0.9) return pick(falta)
+  if (ratio >= 0.9 && ratio <= 1.1) return pick(vaBien)
+  return pick(sePaso)
 }

@@ -35,14 +35,24 @@ export default function Home() {
     const record = getDailyRecord(today, userData.id)
 
     if (record) {
+      // Asegurarnos de que el registro tenga un mensaje motivacional persistido.
+      if (!record.motivationalMessage) {
+        record.motivationalMessage = getMotivationalMessage(record.totalCalories, record.dailyGoal)
+        saveDailyRecord(record, userData.id)
+      }
       setCurrentRecord(record)
     } else {
-      setCurrentRecord({
+      const initialRecord: DailyRecord = {
         date: today,
         entries: [],
         totalCalories: 0,
         dailyGoal: userData.dailyCalorieGoal,
-      })
+        motivationalMessage: getMotivationalMessage(0, userData.dailyCalorieGoal),
+      }
+
+      setCurrentRecord(initialRecord)
+      // Persistimos el registro inicial para mantener el mensaje estable por día
+      saveDailyRecord(initialRecord, userData.id)
     }
   }
 
@@ -209,7 +219,7 @@ export default function Home() {
                 <CalorieGoalDisplay
                   dailyGoal={currentRecord.dailyGoal}
                   consumed={currentRecord.totalCalories}
-                  message={getMotivationalMessage(currentRecord.totalCalories, currentRecord.dailyGoal)}
+                  message={currentRecord.motivationalMessage ?? getMotivationalMessage(currentRecord.totalCalories, currentRecord.dailyGoal)}
                 />
 
                 <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800">

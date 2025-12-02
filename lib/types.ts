@@ -34,4 +34,5 @@ export interface DailyRecord {
   entries: DailyFoodEntry[]
   totalCalories: number
   dailyGoal: number
+  motivationalMessage?: string
 }
